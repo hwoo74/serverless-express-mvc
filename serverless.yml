@@ -1,0 +1,27 @@
+service: serverless-express-mvc
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  timeout: 30
+  stage: dev
+  region: ap-northeast-1
+  # 도쿄로 배포 ... 테스트
+
+functions:
+  api:
+    #handler: index.handler   기존핸들러.
+    handler: handler.handler
+    events:
+      - httpApi: '*'
+
+# additional serverless offline parametar
+plugins: 
+  - serverless-offline
+custom:
+  serverless-offline:
+    #httpsProtocol: "dev-certs"
+    httpPort: 80
+    stageVariables:
+      foo: "bar"
